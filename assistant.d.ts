@@ -290,6 +290,10 @@ declare global {
     }
 
     interface Device {
+        /**
+         * 当前设备的构建信息
+         * @since 1.0.0
+         */
         readonly build: DeviceBuild
         readonly os: DeviceOs
     }
@@ -299,6 +303,7 @@ declare global {
         readonly manufacturer: string
         readonly model: string
         readonly fingerprint: string
+        readonly version: DeviceBuildVersion
     }
 
     interface DeviceOs {
@@ -309,6 +314,19 @@ declare global {
          * @since 1.0.0
          */
         readonly name: string
+
+        /**
+         * 当前手机系统的版本，注意：这个不是安卓的版本号
+         * 是一般如：miui、color_os的版本号
+         * @see DeviceBuildVersion#name
+         * @since 1.0.0
+         */
+        readonly version: string
+    }
+
+    interface DeviceBuildVersion {
+        readonly sdk: number;
+        readonly name: string;
     }
 
 
