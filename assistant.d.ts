@@ -33,11 +33,30 @@ declare global {
         readonly device: Device
 
         /**
+         * 依赖相关
+         * @since 1.0.0
+         */
+        readonly depends: Depends
+
+        /**
          * 主函数入口
          *
          * @since 1.0.0
          */
         main?: () => Promise<void>
+    }
+
+    /**
+     * 插件依赖相关
+     * @since 1.0.0
+     */
+    interface Depends {
+        /**
+         * 运行一个依赖插件
+         * @param name 插件配置中的名称
+         * @since 1.0.0
+         */
+        launch(name: string): void;
     }
 
     /**
@@ -84,6 +103,13 @@ declare global {
          * @since 1.0.0
          */
         isInstalled(package: string): boolean;
+
+        /**
+         * 显示一个小的提示信息
+         * @param text 文本内容
+         * @since 1.0.0
+         */
+        toast(text: string): void;
     }
 
     /**
