@@ -1,25 +1,120 @@
-/**
- * 版本信息
- * @since 1.0.0
- */
-interface Version {
+declare global {
+    const assistant: Info;
+
+    const app: App;
+
+    const thread: Thread;
+
+    const accessibility: Accessibility
+
+    interface Assistant {
+        /**
+         * 版本相关
+         * @since 1.0.0
+         */
+        readonly version: Info
+
+        /**
+         * 系统软件相关
+         * @since 1.0.0
+         */
+        readonly app: App
+
+        /**
+         * 线程相关
+         * @since 1.0.0
+         */
+        readonly thread: Thread
+
+        /**
+         * 无障碍服务
+         * @since 1.0.0
+         */
+        readonly accessibility: Accessibility
+
+        /**
+         * 设备相关
+         * @since 1.0.0
+         */
+        readonly device: Device
+
+        /**
+         * 依赖相关
+         * @since 1.0.0
+         */
+        readonly depends: Depends
+
+        /**
+         * UI提示相关
+         * @since 1.0.0
+         */
+        readonly widgets: Widgets;
+
+        /**
+         * 存储相关
+         * @since 1.0.0
+         */
+        readonly storage: Storage;
+
+        /**
+         * 主函数入口
+         *
+         * @since 1.0.0
+         */
+        main?: () => Promise<void>
+    }
+
+    interface Widgets {
+        /**
+         * 显示一个小的提示信息
+         * @param text 文本内容
+         * @since 1.0.0
+         */
+        toast(text: string): void;
+    }
+
     /**
-     * 获取点击助手版本号：语义版本号
+     * 插件依赖相关
      * @since 1.0.0
      */
-    readonly name: string
+    interface Depends {
+        /**
+         * 运行一个依赖插件
+         * @param name 插件配置中的名称
+         * @since 1.0.0
+         */
+        launch(name: string): void;
+    }
+
+    /**
+     * 版本信息
+     * @since 1.0.0
+     */
+    interface Info {
+        /**
+         * 获取点击助手版本号：语义版本号
+         * @since 1.0.0
+         */
+        readonly versionName: string
 
     /**
      * 获取点击助手版本号：整数类型
      * @since 1.0.0
      */
-    readonly code: number;
+    readonly versionCode: number;
+
+        /**
+         * 获取引擎的版本号
+         * @since 1.0.0
+         */
+        readonly engineVersion: string;
 
     /**
-     * 获取V8引擎的版本号
+     * 主函数入口
+         *
      * @since 1.0.0
      */
-    readonly v8: string;
+    main?: () => Promise<void>
 }
 
 /**
@@ -28,14 +123,28 @@ interface Version {
  */
 interface App {
 
-    /**
-     * 打开一个已经安装的软件
-     *
-     * @param package 软件包名
-     * @since 1.0.0
-     */
-    run(package: string): void;
-}
+        /**
+         * 打开一个已经安装的软件
+         *
+         * @param package 软件包名
+         * @since 1.0.0
+         */
+        run(package: string): void;
+
+        /**
+         * 软件是否安装
+         * @param package 软件包名
+         * @since 1.0.0
+         */
+        isInstalled(package: string): boolean;
+
+        /**
+         * 显示一个小的提示信息
+         * @param text 文本内容
+         * @since 1.0.0
+         */
+        toast(text: string): void;
+    }
 
 /**
  * 线程相关
@@ -44,7 +153,7 @@ interface App {
 interface Thread {
     /**
      * 线程睡眠
-     * @param duration 睡眠时长：毫秒
+     * @param duration 单位：毫秒
      * @since 1.0.0
      */
     sleep(duration: number): void;
